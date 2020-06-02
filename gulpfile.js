@@ -66,12 +66,14 @@ function modules() {
       '!./node_modules/jquery/dist/core.js'
     ])
     .pipe(gulp.dest('./vendor/jquery'));
+  // Custom JS
+  var js = gulp.src('./js/rfm.js').pipe(gulp.dest('./vendor/js'));
   // Simple Line Icons
   var simpleLineIconsFonts = gulp.src('./node_modules/simple-line-icons/fonts/**')
     .pipe(gulp.dest('./vendor/simple-line-icons/fonts'));
   var simpleLineIconsCSS = gulp.src('./node_modules/simple-line-icons/css/**')
     .pipe(gulp.dest('./vendor/simple-line-icons/css'));
-  return merge(bootstrap, fontAwesomeCSS, fontAwesomeWebfonts, jquery, jqueryEasing, simpleLineIconsFonts, simpleLineIconsCSS);
+  return merge(bootstrap, fontAwesomeCSS, fontAwesomeWebfonts, jquery, jqueryEasing, simpleLineIconsFonts, simpleLineIconsCSS,js);
 }
 
 // CSS task

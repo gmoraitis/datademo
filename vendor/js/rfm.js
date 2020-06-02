@@ -1,35 +1,77 @@
 
-  function readTable(path) {
+  function readTable(path, maxScore) {
   
-  // read csv
-  d3.csv(path, function (data) {
+    // read csv
+    d3.csv(path, function (data) {
+      main(data, maxScore);
+    });
+  
+  };
+
+  /**
+ * Foo takes any argument.
+ * The return value is 'baz' in all cases.
+ * @param {*} bar - Any argument
+ * @param {string} [optionalArg] - An optional argument that is a string
+ */
+  function main(data, maxScore) {
     
     // Change to numeric
     changeNumeric(data);
-
+  
     // Extract columns
+    let recency = extractColumn(data, 'RECENCY');
+    let frequency = extractColumn(data, 'FREQUENCY');
+    let monetary = extractColumn(data, 'MONETARY');
 
     // Apply extractScores function to the columns above
+    let rs = extractScores(recency, maxScore);
+    let fs = extractScores(frequency, maxScore);
+    let ms = extractScores(monetary, maxScore);
+    let labels = []
+    for (let i = 0; i < data.length; i++)
+      labels.push([rs[i], fs[i], ms[i]])
+    console.log(labels);
 
     // Append columns to data
 
     // Create and render table
-
-  });
-
 };
-
-// Change to numeric
+  
+/**
+ * Foo takes any argument.
+ * The return value is 'baz' in all cases.
+ * @param {*} bar - Any argument
+ * @param {string} [optionalArg] - An optional argument that is a string
+ */
 function changeNumeric(data) {
-  data.forEach(function (col) {
-    col.RECENCY = +col.RECENCY;
-    col.FREQUENCY = +col.FREQUENCY;
-    col.MONETARY = +col.MONETARY;
+  data.forEach(function (row) {
+    row.RECENCY = +row.RECENCY;
+    row.FREQUENCY = +row.FREQUENCY;
+    row.MONETARY = +row.MONETARY;
   });
 };
 
+/**
+ * Foo takes any argument.
+ * The return value is 'baz' in all cases.
+ * @param {*} bar - Any argument
+ * @param {string} [optionalArg] - An optional argument that is a string
+ */
+function extractColumn(data, colName) {
+  column = [];
+  data.forEach(function (row) {
+    column.push(row[colName]);
+  });
+  return column;
+} 
 
-// Extract scores
+/**
+ * Foo takes any argument.
+ * The return value is 'baz' in all cases.
+ * @param {*} bar - Any argument
+ * @param {string} [optionalArg] - An optional argument that is a string
+ */
 function extractScores(column, maxScore) {
 
   // Get min and max
@@ -51,9 +93,14 @@ function extractScores(column, maxScore) {
   });
   
   return scores;
-}
-  
-// Create table
+}  
+ 
+/**
+ * Foo takes any argument.
+ * The return value is 'baz' in all cases.
+ * @param {*} bar - Any argument
+ * @param {string} [optionalArg] - An optional argument that is a string
+ */
 function update(data, columns) {
   var table = d3.select('table').append('table')
   var thead = table.append('thead')
@@ -68,9 +115,15 @@ function update(data, columns) {
   return table;
 };
 
-// Clear table
+/**
+ * Foo takes any argument.
+ * The return value is 'baz' in all cases.
+ * @param {*} bar - Any argument
+ * @param {string} [optionalArg] - An optional argument that is a string
+ */
 function clear() {
 var table = d3.select('table').selectAll("table").remove();
 };  
-  
+    
+    
   
