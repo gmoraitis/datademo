@@ -3,7 +3,7 @@
   
     // read csv
     d3.csv("/files/rfm.csv", function (data) {
-      main(data, maxScore);
+      main(data, 10);
     });
   
   };
@@ -35,10 +35,10 @@
     console.log(labels);
 
     // Append columns to data
-
+  
     // Create and render table
-    update(data,labels);
-    
+    update(data,labels)
+         
 };
   
 /**
@@ -124,7 +124,7 @@ function update(data, columns) {
  * @param {string} [optionalArg] - An optional argument that is a string
  */
 function clear() {
-var table = d3.select('table').selectAll("table").remove();
+var t = d3.select('table').selectAll('table').remove();
 };  
     
     
