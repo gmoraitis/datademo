@@ -2,8 +2,8 @@
   function readTable(path, maxScore) {
   
     // read csv
-    d3.csv("/files/rfm.csv", function (data) {
-      main(data, 10);
+    d3.csv(path).then(function (data) {
+      main(data, maxScore);
     });
   
   };
@@ -16,7 +16,7 @@
  * @param {*} maxScore - A given number from user to have an end in our calculation.
  */
   function main(data, maxScore) {
-    
+
     // Change to numeric
     changeNumeric(data);
   
@@ -26,26 +26,31 @@
     let monetary = extractColumn(data, 'MONETARY');
 
     // Apply extractScores function to the columns above
-    let rs = extractScores(recency, maxScore);
-    let fs = extractScores(frequency, maxScore);
-    let ms = extractScores(monetary, maxScore);
+    let recScores = extractScores(recency, maxScore);
+    let freqScores = extractScores(frequency, maxScore);
+    let monScores= extractScores(monetary, maxScore);
     let labels = []
-    for (let i = 0; i < data.length; i++)
-      labels.push([rs[i], fs[i], ms[i]])
-    console.log(labels);
-
-    // Append columns to data
-  
-    // Create and render table
-    update(data,labels)
+    let scoresCols = ['RecencyScores', 'FrequencyScores', 'MonetaryScores'];
+    for (let i = 0; i < data.length; i++){
+      let scoresRow = {};
+      scoresRow[scoresCols[0]] = recScores[i];
+      scoresRow[scoresCols[1]] = freqScores[i];
+      scoresRow[scoresCols[2]] = monScores[i];
+      labels.push(scoresRow);
+    }
+    console.log(data);
+    data = _.merge(data, labels);
+    data.columns = data.columns.concat(scoresCols);
+    console.log(data);
          
 };
-  
+ 
 /**
  * Converts a string to number for the calculations.
- * With the  + operator we can do the change . 
+ * With the + operator we can do the change . 
  */
 function changeNumeric(data) {
+
   data.forEach(function (row) {
     row.RECENCY = +row.RECENCY;
     row.FREQUENCY = +row.FREQUENCY;
@@ -56,7 +61,7 @@ function changeNumeric(data) {
 /**
  * It takes two arguments.
  * The return value is 'column' in all cases.
- * @param {*} data - Is the
+ * @param {*} data - Is the 
  * @param {*} colName - An optional argument that is a string.
  * @param {*} column - Is an array to be filled.
  */
@@ -69,10 +74,10 @@ function extractColumn(data, colName) {
 } 
 
 /**
- * Foo takes any argument.
- * The return value is 'baz' in all cases.
- * @param {*} bar - Any argument
- * @param {string} [optionalArg] - An optional argument that is a string
+ * extractScores takes two arguments.
+ * The return value is 'scores' in all cases.
+ * @param {*} column - 
+ * @param {*} maxScore - 
  */
 function extractScores(column, maxScore) {
 
@@ -95,37 +100,8 @@ function extractScores(column, maxScore) {
   });
   
   return scores;
-}  
- 
-/**
- * Foo takes any argument.
- * The return value is 'baz' in all cases.
- * @param {*} bar - Any argument
- * @param {string} [optionalArg] - An optional argument that is a string
- */
-function update(data, columns) {
-  var table = d3.select('table').append('table')
-  var thead = table.append('thead')
-  var tbody = table.append('tbody')
-  thead.append('tr').selectAll('th').data(columns).enter().append('th').text(function (d) { return d })
-  var rows = tbody.selectAll('tr').data(data).enter().append('tr')
-  var cells = rows.selectAll('td').data(function (row) {
-    return columns.map(function (column) {
-      return { column: column, value: row[column] }
-    })
-  }).enter().append('td').text(function (d) { return d.value })
-  return table;
-};
-
-/**
- * Foo takes any argument.
- * The return value is 'baz' in all cases.
- * @param {*} bar - Any argument
- * @param {string} [optionalArg] - An optional argument that is a string
- */
-function clear() {
-var t = d3.select('table').selectAll('table').remove();
-};  
+}
+  
     
     
   

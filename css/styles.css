@@ -1,0 +1,15 @@
+body {
+    background-color: #3c3c3c;
+    color: #cfcfcf;
+  }
+
+table_2 {
+    line-height: 15px;
+    margin-bottom: 3px;
+    background-color: rgb(197, 21, 21);
+    text-align: right;
+    padding-right: 50px;
+    font-size: 10px;
+    color: #da2828;
+  }
+
