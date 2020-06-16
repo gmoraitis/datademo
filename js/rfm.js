@@ -25,10 +25,10 @@
     let frequency = extractColumn(data, 'FREQUENCY');
     let monetary = extractColumn(data, 'MONETARY');
 
-    // Apply extractScores function to the columns above
-    let recScores = extractScores(recency, maxScore);
-    let freqScores = extractScores(frequency, maxScore);
-    let monScores= extractScores(monetary, maxScore);
+    // Apply calculateScores function to the columns above
+    let recScores = calculateScores(recency, maxScore);
+    let freqScores = calculateScores(frequency, maxScore);
+    let monScores= calculateScores(monetary, maxScore);
     let labels = []
     let scoresCols = ['RecencyScores', 'FrequencyScores', 'MonetaryScores'];
     for (let i = 0; i < data.length; i++){
@@ -79,7 +79,7 @@ function extractColumn(data, colName) {
  * @param {*} column - 
  * @param {*} maxScore - 
  */
-function extractScores(column, maxScore) {
+function calculateScores(column, maxScore) {
 
   // Get min and max
   min = Math.min(...column);
