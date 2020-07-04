@@ -1,9 +1,9 @@
 body {
     background-color: #3c3c3c;
-    color: #cfcfcf;
+    color: #cac7c7;
   }
 
-table_2 {
+.table_2 {
     line-height: 15px;
     margin-bottom: 3px;
     background-color: rgb(197, 21, 21);
@@ -12,4 +12,7 @@ table_2 {
     font-size: 10px;
     color: #da2828;
   }
+output{
+  color: beige;
+}
 

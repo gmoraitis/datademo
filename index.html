@@ -12,9 +12,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-     <!--D3.js-->
-     <script src="https://d3js.org/d3.v5.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+    <!--D3.js-->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
 
 
 </head>
@@ -34,11 +34,11 @@
             <!-- Page Heading -->
             <!-- <h1 class="h3 mb-4 text-gray-800">Rfm Basic Demostration with CSV file</h1> -->
 
-             <!-- <table class="table">  -->
+            <!-- <table class="table">  -->
 
             <!-- <iframe src="https://trinket.io/embed/python/edd948bf08" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe> -->
 
-             <!-- <form>
+            <!-- <form>
         <input type="button" value="Import CSV and Generate Table" onclick="clear_e2p1(); callback_e2p1()">
         <input type="reset" value="Clear" onclick="clear()">
       </form>
@@ -62,8 +62,11 @@
                         <a href="#" class="btn btn-primary">
                             <span class="icon text-white-50">
                             </span>
-                            <span class="text" onclick="clear(); readTable()">Best Monetary Customer</span>
+                            <input id="csv" type="file" class="text" onchange="clear(); readTable();"Best Monetary
+                                Customer>
                         </a>
+
+
 
 
                         <a href="#" class="btn btn-danger btn-sm">
@@ -74,22 +77,28 @@
                         </a>
                         <table class="table"></table>
                         <table class="table_2"></table>
-                        <div id = "visualization" ></div>
-                       
+
+                        <!--<p>Select local CSV File:</p>
+                        <input id="patho" type="file" onclick="readPath()">
+                        <output id="out">
+                            file contents will appear here
+                        </output>-->
+                        <div id="visualization"></div>
+
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </section>
     <!-- /.container-fluid -->
 
 
-    
+
 
     <!-- Custom Scripts-->
     <!-- <script src="/js/rfm.js"></script> -->
-    <script src="/js/testing.js"></script> 
+    <script src="/js/testing.js"></script>
 
 
 </body>
