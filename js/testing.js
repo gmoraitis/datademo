@@ -1,18 +1,20 @@
-
-
-
+let readFile = function () {
+  let file = document.getElementById("csv").files[0];
+  let reader = new FileReader();
+  reader.readAsBinaryString(file);
+  return reader;  
+};
 let maxScore = 10;
-
+ 
 //FOR MONETARY
-function readTable() {
+function readTable(maxScore) {
   
-  let path = document.getElementById('csv').value;
-  console.log(path);
-
-  // read csv
-  d3.csv(path).then(function (data) {
+  let reader = readFile()
+  reader.onload = function () {
+    let data = reader.result;
+    data = d3.csvParse(data);
     main(data, maxScore);
-  });
+  }
 
 };
 
@@ -47,10 +49,10 @@ function main(data, maxScore) {
     scoresRow[scoresCols[2]] = monScores[i];
     labels.push(scoresRow);
   }
-  
+
   data = _.merge(data, labels);
   data.columns = data.columns.concat(scoresCols);
-  
+
 
 
   // Set the matgin of the svg
@@ -158,7 +160,7 @@ function calculateScores(column, maxScore) {
   return scores;
 }
 
-function clear(){
+function clear() {
   document.getElementsById('visualization').style.display = "none";
 }
 
