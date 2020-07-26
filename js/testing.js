@@ -52,6 +52,7 @@ function main(data, maxScore) {
 
   data = _.merge(data, labels);
   data.columns = data.columns.concat(scoresCols);
+  console.log(data);
 
 
 
@@ -77,8 +78,8 @@ function main(data, maxScore) {
     .range([height, 0]);
 
   // Scale the range of the data in the domains
-  x.domain(data.map(function (row) { return row.ID; }));
-  y.domain([0, d3.max(data, function (row) { return row.MONETARY; })]);
+  x.domain(data.map(function (row) { return row.RECENCY; }));
+  y.domain([0, d3.max(data, function (row) { return row.FREQUENCY; })]);
 
 
   // append the rectangles for the bar chart
@@ -86,10 +87,10 @@ function main(data, maxScore) {
     .data(data)
     .enter().append("rect")
     .attr("class", "bar")
-    .attr("x", function (row) { return x(row.ID); })
+    .attr("x", function (row) { return x(row.RECENCY); })
     .attr("width", x.bandwidth())
-    .attr("y", function (row) { return y(row.MONETARY); })
-    .attr("height", function (row) { return height - y(row.MONETARY); });
+    .attr("y", function (row) { return y(row.FREQUENCY); })
+    .attr("height", function (row) { return height - y(row.FREQUENCY); });
 
   //add the x axis
   svg.append("g")
@@ -134,7 +135,7 @@ function extractColumn(data, colName) {
 /**
 * extractScores takes two arguments.
 * The return value is 'scores' in all cases.
-* @param {*} column - 
+* @param {*} column -         
 * @param {*} maxScore - 
 */
 function calculateScores(column, maxScore) {
@@ -161,6 +162,6 @@ function calculateScores(column, maxScore) {
 }
 
 function clear() {
-  document.getElementsById('visualization').style.display = "none";
+  document.getElementsById('visualization').style.display = 'none';
 }
 
